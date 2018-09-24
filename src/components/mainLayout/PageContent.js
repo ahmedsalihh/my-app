@@ -1,21 +1,13 @@
 import React from "react";
 import { Layout, Breadcrumb } from "antd";
+import Containers from "./Containers";
+import { parseResult } from "../utils";
 
 const { Header, Content, Footer } = Layout;
 
-function executeCommand() {
-  var exec = window.require("child_process").exec;
-  exec("docker ps", function(error, stdout, stderr) {
-    console.log("stdout: " + stdout);
-    console.log("stderr: " + stderr);
-    if (error !== null) {
-      console.log("exec error: " + error);
-    }
-  });
-}
-
-export default class PageContent extends React.Component {
+class PageContent extends React.Component {
   render() {
+    const containers = parseResult();
     return (
       <Layout>
         <Header style={{ background: "#fff", padding: 0 }} />
@@ -26,7 +18,7 @@ export default class PageContent extends React.Component {
           </Breadcrumb>
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
             Bill is a cat.
-            {executeCommand()}
+            <Containers data={containers}/>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
@@ -36,3 +28,5 @@ export default class PageContent extends React.Component {
     );
   }
 }
+
+export default PageContent;
