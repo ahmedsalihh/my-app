@@ -1,175 +1,83 @@
-// function getContainerIds() {
-//   const exec = window.require("child_process").exec;
-//   let containerIds = [];
-//   exec("docker ps -a | awk '{ print $1 }'", function(error, stdout, stderr) {
-//     containerIds = stdout.split("\n");
-//     console.log("contArray: \n" + containerIds);
-//     console.log("stderr: " + stderr);
-//     if (error !== null) {
-//       console.log("exec error: " + error);
-//     }
-//   });
-//   return containerIds;
-// }
+const execSync = window.require("child_process").execSync;
 
-// function getImages() {
-//   const exec = window.require("child_process").exec;
-//   let images = [];
-//   exec("docker ps -a | awk '{ print $2 }'", function(error, stdout, stderr) {
-//     images = stdout.split("\n");
-//     console.log("imageArray: \n" + images);
-//     console.log("stderr: " + stderr);
-//     if (error !== null) {
-//       console.log("exec error: " + error);
-//     }
-//   });
-//   return images;
-// }
+function getContainerIds() {
+  let containerIds = [];
+  const child = execSync("docker ps -a | awk  -F '[[:space:]][[:space:]]+' '{ print $1 }'");
 
-// function getCommands() {
-//   const exec = window.require("child_process").exec;
-//   let commands = [];
-//   exec("docker ps -a | awk '{ print $3 }'", function(error, stdout, stderr) {
-//     commands = stdout.split("\n");
-//     console.log("commandsArray: \n" + commands);
-//     console.log("stderr: " + stderr);
-//     if (error !== null) {
-//       console.log("exec error: " + error);
-//     }
-//   });
-//   return commands;
-// }
+  console.log(child.toString());
+  containerIds = child.toString().split("\n");
+  
+  return containerIds;
+}
 
-// function getCreateTime() {
-//   const exec = window.require("child_process").exec;
-//   let createTime = [];
-//   exec("docker ps -a | awk '{ print $4 }'", function(error, stdout, stderr) {
-//     createTime = stdout.split("\n");
-//     console.log("createTimeArray: \n" + createTime);
-//     console.log("stderr: " + stderr);
-//     if (error !== null) {
-//       console.log("exec error: " + error);
-//     }
-//   });
-//   return createTime;
-// }
+function getImages() {
+  let images = [];
+  const child = execSync("docker ps -a | awk -F '[[:space:]][[:space:]]+' '{ print $2 }'");
 
-// function getStatus() {
-//   const exec = window.require("child_process").exec;
-//   let status = [];
-//   exec("docker ps -a | awk '{ print $5 }'", function(error, stdout, stderr) {
-//     status = stdout.split("\n");
-//     console.log("statusArray: \n" + status);
-//     console.log("stderr: " + stderr);
-//     if (error !== null) {
-//       console.log("exec error: " + error);
-//     }
-//   });
-//   return status;
-// }
+  console.log(child.toString());
+  images = child.toString().split("\n");
+  
+  return images;
+}
 
-// function getPorts() {
-//   const exec = window.require("child_process").exec;
-//   let ports = [];
-//   exec("docker ps -a | awk '{ print $6 }'", function(error, stdout, stderr) {
-//     ports = stdout.split("\n");
-//     console.log("portsArray: \n" + ports);
-//     console.log("stderr: " + stderr);
-//     if (error !== null) {
-//       console.log("exec error: " + error);
-//     }
-//   });
-//   return ports;
-// }
+function getCommands() {
+  let commands = [];
+  const child = execSync("docker ps -a | awk -F '[[:space:]][[:space:]]+' '{ print $3 }'");
 
-// function getNames() {
-//   const exec = window.require("child_process").exec;
-//   let names = [];
-//   exec("docker ps -a | awk '{ print $7 }'", function(error, stdout, stderr) {
-//     names = stdout.split("\n");
-//     console.log("namesArray: \n" + names);
-//     console.log("stderr: " + stderr);
-//     if (error !== null) {
-//       console.log("exec error: " + error);
-//     }
-//   });
-//   return names;
-// }
+  console.log(child.toString());
+  commands = child.toString().split("\n");
+  
+  return commands;
+}
+
+function getCreateTime() {
+  let createTime = [];
+  const child = execSync("docker ps -a | awk -F '[[:space:]][[:space:]]+' '{ print $4 }'");
+
+  console.log(child.toString());
+  createTime = child.toString().split("\n");
+  
+  return createTime;
+}
+
+function getStatus() {
+  let status = [];
+  const child = execSync("docker ps -a | awk -F '[[:space:]][[:space:]]+' '{ print $5 }'");
+
+  console.log(child.toString());
+  status = child.toString().split("\n");
+  
+  return status;
+}
+
+function getPorts() {
+  let ports = [];
+  const child = execSync("docker ps -a | awk -F '[[:space:]][[:space:]]+' '{ print $6 }'");
+
+  console.log(child.toString());
+  ports = child.toString().split("\n");
+  
+  return ports;
+}
+
+function getNames() {
+  let names = [];
+  const child = execSync("docker ps -a | awk -F '[[:space:]][[:space:]]+' '{ print $7 }'");
+
+  console.log(child.toString());
+  names = child.toString().split("\n");
+  
+  return names;
+}
 
 export function parseResult() {
-  // const containerIds = getContainerIds();
-  // const images = getImages();
-  // const commands = getCommands();
-  // const createTimes = getCreateTime();
-  // const status = getStatus();
-  // const ports = getPorts();
-  // const names = getNames();
-
-  const exec = window.require("child_process").exec;
-
-  let containerIds = [];
-  exec("docker ps -a | awk '{ print $1 }'", function(error, stdout, stderr) {
-    containerIds = stdout.split("\n");
-    console.log("contArray: \n" + containerIds);
-    console.log("stderr: " + stderr);
-    if (error !== null) {
-      console.log("exec error: " + error);
-    }
-  });
-  let images = [];
-  exec("docker ps -a | awk '{ print $2 }'", function(error, stdout, stderr) {
-    images = stdout.split("\n");
-    console.log("imageArray: \n" + images);
-    console.log("stderr: " + stderr);
-    if (error !== null) {
-      console.log("exec error: " + error);
-    }
-  });
-  let commands = [];
-  exec("docker ps -a | awk '{ print $3 }'", function(error, stdout, stderr) {
-    commands = stdout.split("\n");
-    console.log("commandsArray: \n" + commands);
-    console.log("stderr: " + stderr);
-    if (error !== null) {
-      console.log("exec error: " + error);
-    }
-  });
-  let createTimes = [];
-  exec("docker ps -a | awk '{ print $4 }'", function(error, stdout, stderr) {
-    createTimes = stdout.split("\n");
-    console.log("createTimeArray: \n" + createTimes);
-    console.log("stderr: " + stderr);
-    if (error !== null) {
-      console.log("exec error: " + error);
-    }
-  });
-  let status = [];
-  exec("docker ps -a | awk '{ print $5 }'", function(error, stdout, stderr) {
-    status = stdout.split("\n");
-    console.log("statusArray: \n" + status);
-    console.log("stderr: " + stderr);
-    if (error !== null) {
-      console.log("exec error: " + error);
-    }
-  });
-  let ports = [];
-  exec("docker ps -a | awk '{ print $6 }'", function(error, stdout, stderr) {
-    ports = stdout.split("\n");
-    console.log("portsArray: \n" + ports);
-    console.log("stderr: " + stderr);
-    if (error !== null) {
-      console.log("exec error: " + error);
-    }
-  });
-  let names = [];
-  exec("docker ps -a | awk '{ print $7 }'", function(error, stdout, stderr) {
-    names = stdout.split("\n");
-    console.log("namesArray: \n" + names);
-    console.log("stderr: " + stderr);
-    if (error !== null) {
-      console.log("exec error: " + error);
-    }
-  });
+  const containerIds = getContainerIds();
+  const images = getImages();
+  const commands = getCommands();
+  const createTimes = getCreateTime();
+  const status = getStatus();
+  const ports = getPorts();
+  const names = getNames();
 
   let containers = [];
   for (let i = 0; i < containerIds.length; i++) {
@@ -183,6 +91,8 @@ export function parseResult() {
       name: names[i]
     });
   }
+  containers.shift();
+  containers.splice(-1,1);
   console.log(containers);
   return containers;
 }

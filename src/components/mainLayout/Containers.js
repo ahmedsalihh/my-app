@@ -1,24 +1,25 @@
 import React from "react";
 import { Table } from "antd";
+import { parseResult } from "../utils";
 
 export default class Containers extends React.Component {
   render() {
     const columns = [
       {
         title: "containerIds",
-        dataIndex: "containerIds"
+        dataIndex: "id"
       },
       {
         title: "images",
-        dataIndex: "images"
+        dataIndex: "image"
       },
       {
         title: "commands",
-        dataIndex: "commands"
+        dataIndex: "command"
       },
       {
         title: "createTimes",
-        dataIndex: "createTimes"
+        dataIndex: "createTime"
       },
       {
         title: "status",
@@ -26,18 +27,18 @@ export default class Containers extends React.Component {
       },
       {
         title: "ports",
-        dataIndex: "ports"
+        dataIndex: "port"
       },
       {
         title: "names",
-        dataIndex: "names"
+        dataIndex: "name"
       }
     ];
-
+    const containers = parseResult();
     return (
       <Table
         columns={columns}
-        dataSource={this.props.data}
+        dataSource={containers}
         bordered={false}
         pagination={false}
       />
