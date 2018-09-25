@@ -3,11 +3,12 @@ import { Table } from "antd";
 import { parseResult } from "../utils";
 
 export default class Containers extends React.Component {
+  renderContainers = parseResult();
   render() {
     const columns = [
       {
-        title: "containerIds",
-        dataIndex: "id"
+        title: "names",
+        dataIndex: "name"
       },
       {
         title: "images",
@@ -28,17 +29,12 @@ export default class Containers extends React.Component {
       {
         title: "ports",
         dataIndex: "port"
-      },
-      {
-        title: "names",
-        dataIndex: "name"
       }
     ];
-    const containers = parseResult();
     return (
       <Table
         columns={columns}
-        dataSource={containers}
+        dataSource={this.renderContainers}
         bordered={false}
         pagination={false}
       />
