@@ -93,7 +93,6 @@ export function parseResult() {
       name: names[i].replaceAll("'", "")
     });
   }
-  containers.shift();
   containers.splice(-1, 1);
   console.log(containers);
   return containers;
