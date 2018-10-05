@@ -6,7 +6,7 @@ const SubMenu = Menu.SubMenu;
 
 export default class LeftSider extends React.Component {
   state = {
-    collapsed: false
+    collapsed: true
   };
 
   onCollapse = collapsed => {

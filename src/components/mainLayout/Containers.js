@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Button } from "antd";
 import { parseResult } from "../utils";
+import RunComponent from "./RunComponent";
 
 const execSync = window.require("child_process").execSync;
 
@@ -10,7 +11,8 @@ export default class Containers extends React.Component {
     this.state = {
       containers: [],
       selectedRowKeys: [],
-      loading: false
+      loading: false,
+      formDisplay: false
     };
   }
   updateContainers = () => {
@@ -59,6 +61,10 @@ export default class Containers extends React.Component {
     this.updateContainers();
   };
 
+  handleRunClick = () => {
+    this.setState({ formDisplay: !this.state.formDisplay });
+  };
+
   componentDidMount() {
     this.updateContainers();
   }
@@ -66,19 +72,19 @@ export default class Containers extends React.Component {
   render() {
     const columns = [
       {
-        title: "names",
+        title: "name",
         dataIndex: "name"
       },
       {
-        title: "images",
+        title: "image",
         dataIndex: "image"
       },
       {
-        title: "commands",
+        title: "command",
         dataIndex: "command"
       },
       {
-        title: "createTimes",
+        title: "create time",
         dataIndex: "createTime"
       },
       {
@@ -86,7 +92,7 @@ export default class Containers extends React.Component {
         dataIndex: "status"
       },
       {
-        title: "ports",
+        title: "port",
         dataIndex: "port"
       }
     ];
@@ -122,6 +128,8 @@ export default class Containers extends React.Component {
         >
           Restart
         </Button>
+        <Button onClick={this.handleRunClick}>Run</Button>
+        <RunComponent showComponent={this.state.formDisplay}/>
         <Table
           rowSelection={rowSelection}
           columns={columns}
