@@ -14,9 +14,20 @@ class RunComponent extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const runConf = {
+      portValue: e.target.port.value
+        ? " -p " +
+          (e.target.forwardPort.value
+            ? e.target.port.value + ":" + e.target.forwardPort.value + " "
+            : e.target.port.value)
+        : "",
+      name: e.target.name.value ? " --name " + e.target.name.value + " " : ""
+    };
     console.log(e.target.port.value);
     console.log(e.target.forwardPort.value);
     console.log(e.target.name.value);
+    console.log(runConf);
+    this.props.runConf(runConf);
   };
 
   onInputChange = value => {
@@ -40,6 +51,7 @@ class RunComponent extends React.Component {
     return this.props.showComponent ? (
       <div>
         <Form onSubmit={this.handleSubmit}>
+          <h2 style={{ marginTop: "10px" }}>Run Configuration</h2>
           <FormItem label="Port" {...formItemLayout}>
             {getFieldDecorator("port", {
               rules: [{ type: "number", message: "Please input only number" }]
@@ -49,7 +61,7 @@ class RunComponent extends React.Component {
                 placeholder="Port"
                 style={{ width: "50%" }}
               />
-            )} 
+            )}
             {getFieldDecorator("forwardPort", {
               rules: [{ type: "number", message: "Please input only number" }]
             })(

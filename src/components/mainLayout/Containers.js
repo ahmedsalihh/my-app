@@ -12,7 +12,8 @@ export default class Containers extends React.Component {
       containers: [],
       selectedRowKeys: [],
       loading: false,
-      formDisplay: false
+      formDisplay: false,
+      runConf: ""
     };
   }
   updateContainers = () => {
@@ -68,6 +69,18 @@ export default class Containers extends React.Component {
   componentDidMount() {
     this.updateContainers();
   }
+
+  handleRunConf = runConf => {
+    const confStr = (runConf.portValue + runConf.name).replace("  ", " ");
+    this.setState({ runConf: confStr });
+    try {
+      execSync("docker run -dt" + confStr + " ubuntu ");
+    } catch (err) {
+      console.log(err);
+    }
+    console.log(confStr);
+    this.updateContainers();
+  };
 
   render() {
     const columns = [
@@ -129,7 +142,10 @@ export default class Containers extends React.Component {
           Restart
         </Button>
         <Button onClick={this.handleRunClick}>Run</Button>
-        <RunComponent showComponent={this.state.formDisplay}/>
+        <RunComponent
+          showComponent={this.state.formDisplay}
+          runConf={this.handleRunConf}
+        />
         <Table
           rowSelection={rowSelection}
           columns={columns}
