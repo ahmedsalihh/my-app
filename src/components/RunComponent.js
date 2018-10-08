@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form, Input, InputNumber } from "antd";
-import "../../App.css";
+import "../App.css";
 
 const FormItem = Form.Item;
 
@@ -78,7 +78,7 @@ class RunComponent extends React.Component {
             })(<Input />)}
           </FormItem>
           <FormItem>
-            <Button htmlType="submit">Run</Button>
+            <Button htmlType="submit">Execute</Button>
           </FormItem>
         </Form>
       </div>
