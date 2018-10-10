@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Table } from "antd";
 import RunComponentForm from "../RunComponent";
+import { parseImageResult } from "./imageCommands";
 
 const execSync = window.require("child_process").execSync;
 
@@ -14,6 +15,14 @@ class Images extends React.Component {
       runConf: ""
     };
   }
+
+  componentDidMount() {
+    this.updateImages();
+  }
+
+  updateImages = () => {
+    this.setState({ images: parseImageResult(), selectedRowKeys: [] });
+  };
 
   handleRunClick = () => {
     this.setState({ formDisplay: !this.state.formDisplay });
@@ -40,19 +49,19 @@ class Images extends React.Component {
     const columns = [
       {
         title: "Repository",
-        dataIndex: "repository"
+        dataIndex: "repoIds"
       },
       {
         title: "Tag",
-        dataIndex: "tag"
+        dataIndex: "tags"
       },
       {
         title: "Create Time",
-        dataIndex: "create"
+        dataIndex: "createTimes"
       },
       {
         title: "Size",
-        dataIndex: "size"
+        dataIndex: "sizes"
       }
     ];
 

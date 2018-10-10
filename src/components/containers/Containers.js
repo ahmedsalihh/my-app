@@ -1,6 +1,6 @@
 import React from "react";
 import { Table, Button } from "antd";
-import { parseResult } from "../utils";
+import { parseResult } from "./containerCommands";
 import RunComponent from "../RunComponent";
 
 const execSync = window.require("child_process").execSync;
