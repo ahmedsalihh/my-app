@@ -61,19 +61,13 @@ export default class Containers extends React.Component {
     this.updateContainers();
   };
 
-  handleRunClick = () => {
-    this.setState({ formDisplay: !this.state.formDisplay });
-  };
-
   handleDelete = () => {
     this.setState({ loading: true });
     console.log("after delete command " + this.state.loading);
     this.state.selectedRowKeys.map(row => {
       this.setState({ loading: false });
       console.log("after delete command " + this.state.loading);
-      return execSync(
-        "docker container rm " + this.state.containers[row].id
-      );
+      return execSync("docker container rm " + this.state.containers[row].id);
     });
     this.updateContainers();
   };
@@ -81,18 +75,6 @@ export default class Containers extends React.Component {
   componentDidMount() {
     this.updateContainers();
   }
-
-  handleRunConf = runConf => {
-    const confStr = (runConf.portValue + runConf.name).replace("  ", " ");
-    this.setState({ runConf: confStr });
-    try {
-      execSync("docker run -dt" + confStr + " ubuntu ");
-    } catch (err) {
-      console.log(err);
-    }
-    console.log(confStr);
-    this.updateContainers();
-  };
 
   render() {
     const columns = [

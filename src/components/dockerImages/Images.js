@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Table } from "antd";
+import { Button, Table, Checkbox } from "antd";
 import RunComponentForm from "../RunComponent";
 import { parseImageResult } from "./imageCommands";
 
@@ -13,7 +13,8 @@ class Images extends React.Component {
       selectedRowKeys: [],
       formDisplay: false,
       runConf: "",
-      loading: false
+      loading: false,
+      forceChacked: false
     };
   }
 
@@ -52,9 +53,19 @@ class Images extends React.Component {
     this.state.selectedRowKeys.map(row => {
       this.setState({ loading: false });
       console.log("after delete command " + this.state.loading);
-      return execSync("docker image rm " + this.state.images[row].imageIds);
+      const cmdStr =
+        "docker image rm " +
+        (this.state.forceChacked ? " -f " : " ") +
+        this.state.images[row].imageIds;
+      return execSync(cmdStr);
     });
     this.updateImages();
+  };
+
+  onCheckBoxClick = e => {
+    this.setState({ forceChacked: !this.state.forceChacked });
+    console.log(`checked = ${e.target.checked}`);
+    console.log(this.state.forceChacked);
   };
 
   render() {
@@ -94,6 +105,12 @@ class Images extends React.Component {
         >
           Delete
         </Button>
+        <Checkbox
+          onChange={this.onCheckBoxClick}
+          style={{ marginLeft: "10px" }}
+        >
+          Force Delete
+        </Checkbox>
         <Button onClick={this.handleRunClick}>Run</Button>
         <RunComponentForm
           showComponent={this.state.formDisplay}
