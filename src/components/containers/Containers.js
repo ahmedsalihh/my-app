@@ -1,7 +1,6 @@
 import React from "react";
 import { Table, Button } from "antd";
 import { parseResult } from "./containerCommands";
-import RunComponent from "../RunComponent";
 
 const execSync = window.require("child_process").execSync;
 
@@ -64,6 +63,19 @@ export default class Containers extends React.Component {
 
   handleRunClick = () => {
     this.setState({ formDisplay: !this.state.formDisplay });
+  };
+
+  handleDelete = () => {
+    this.setState({ loading: true });
+    console.log("after delete command " + this.state.loading);
+    this.state.selectedRowKeys.map(row => {
+      this.setState({ loading: false });
+      console.log("after delete command " + this.state.loading);
+      return execSync(
+        "docker container rm " + this.state.containers[row].id
+      );
+    });
+    this.updateContainers();
   };
 
   componentDidMount() {
@@ -141,11 +153,13 @@ export default class Containers extends React.Component {
         >
           Restart
         </Button>
-        <Button onClick={this.handleRunClick}>Run</Button>
-        <RunComponent
-          showComponent={this.state.formDisplay}
-          runConf={this.handleRunConf}
-        />
+        <Button
+          onClick={this.handleDelete}
+          loading={loading}
+          disabled={!hasSelected}
+        >
+          Delete
+        </Button>
         <Table
           rowSelection={rowSelection}
           columns={columns}

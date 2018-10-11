@@ -12,7 +12,8 @@ class Images extends React.Component {
       images: [],
       selectedRowKeys: [],
       formDisplay: false,
-      runConf: ""
+      runConf: "",
+      loading: false
     };
   }
 
@@ -45,6 +46,17 @@ class Images extends React.Component {
     this.updateContainers();
   };
 
+  handleDelete = () => {
+    this.setState({ loading: true });
+    console.log("after delete command " + this.state.loading);
+    this.state.selectedRowKeys.map(row => {
+      this.setState({ loading: false });
+      console.log("after delete command " + this.state.loading);
+      return execSync("docker image rm " + this.state.images[row].imageIds);
+    });
+    this.updateImages();
+  };
+
   render() {
     const columns = [
       {
@@ -65,14 +77,23 @@ class Images extends React.Component {
       }
     ];
 
-    const { selectedRowKeys } = this.state;
+    const { selectedRowKeys, loading } = this.state;
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange
     };
 
+    const hasSelected = selectedRowKeys.length > 0;
+
     return (
       <div>
+        <Button
+          onClick={this.handleDelete}
+          loading={loading}
+          disabled={!hasSelected}
+        >
+          Delete
+        </Button>
         <Button onClick={this.handleRunClick}>Run</Button>
         <RunComponentForm
           showComponent={this.state.formDisplay}
