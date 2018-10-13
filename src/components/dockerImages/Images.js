@@ -44,7 +44,7 @@ class Images extends React.Component {
       console.log(err);
     }
     console.log(confStr);
-    this.updateContainers();
+    this.updateImages();
   };
 
   handleDelete = () => {
@@ -115,6 +115,7 @@ class Images extends React.Component {
         <RunComponentForm
           showComponent={this.state.formDisplay}
           runConf={this.handleRunConf}
+          selectedImage={this.state.images[this.state.selectedRowKeys[0]]}
         />
         <Table
           rowSelection={rowSelection}

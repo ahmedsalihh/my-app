@@ -21,11 +21,15 @@ class RunComponent extends React.Component {
             ? e.target.port.value + ":" + e.target.forwardPort.value + " "
             : e.target.port.value)
         : "",
-      name: e.target.name.value ? " --name " + e.target.name.value + " " : ""
+      name: e.target.name.value ? " --name " + e.target.name.value + " " : "",
+      imageName: this.props.selectedImage
+        ? this.props.selectedImage.repoIds
+        : e.target.imageName.value
     };
     console.log(e.target.port.value);
     console.log(e.target.forwardPort.value);
     console.log(e.target.name.value);
+    console.log(e.target.imageName);
     console.log(runConf);
     this.props.runConf(runConf);
   };
@@ -52,6 +56,17 @@ class RunComponent extends React.Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
           <h2 style={{ marginTop: "10px" }}>Run Configuration</h2>
+          <FormItem label="Image" {...formItemLayout}>
+            {getFieldDecorator("imageName", {
+              rules: [{ type: "string", message: "Please input image name" }]
+            })(
+              <InputNumber
+                name="imageName"
+                placeholder="Image Name"
+                style={{ width: "50%" }}
+              />
+            )}
+          </FormItem>
           <FormItem label="Port" {...formItemLayout}>
             {getFieldDecorator("port", {
               rules: [{ type: "number", message: "Please input only number" }]
@@ -75,7 +90,13 @@ class RunComponent extends React.Component {
           <FormItem label="Name" {...formItemLayout}>
             {getFieldDecorator("name", {
               rules: [{ type: "string", message: "Please input name" }]
-            })(<Input />)}
+            })(
+              <Input
+                name="name"
+                placeholder="Docker Name"
+                style={{ width: "50%" }}
+              />
+            )}
           </FormItem>
           <FormItem>
             <Button htmlType="submit">Execute</Button>
