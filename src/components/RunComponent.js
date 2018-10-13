@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Input, InputNumber } from "antd";
+import { Button, Form, Input, InputNumber, Row, Col } from "antd";
 import "../App.css";
 
 const FormItem = Form.Item;
@@ -41,61 +41,78 @@ class RunComponent extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
 
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 1 }
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 8 }
-      }
-    };
+    // const formItemLayout = {
+    //   labelCol: {
+    //     xs: { span: 24 },
+    //     sm: { span: 1 }
+    //   },
+    //   wrapperCol: {
+    //     xs: { span: 24 },
+    //     sm: { span: 8 }
+    //   }
+    // };
 
     return this.props.showComponent ? (
       <div>
         <Form onSubmit={this.handleSubmit}>
           <h2 style={{ marginTop: "10px" }}>Run Configuration</h2>
-          <FormItem label="Image" {...formItemLayout}>
+          <FormItem>
             {getFieldDecorator("imageName", {
               rules: [{ type: "string", message: "Please input image name" }]
             })(
-              <InputNumber
-                name="imageName"
-                placeholder="Image Name"
-                style={{ width: "50%" }}
-              />
+              <Row>
+                <Col span={2}>
+                  <label name="Image">Image :</label>
+                </Col>
+                <Col span={10}>
+                  <InputNumber
+                    name="imageName"
+                    placeholder="Image Name"
+                    style={{ width: "100%" }}
+                  />
+                </Col>
+              </Row>
             )}
           </FormItem>
-          <FormItem label="Port" {...formItemLayout}>
+          <FormItem>
             {getFieldDecorator("port", {
               rules: [{ type: "number", message: "Please input only number" }]
             })(
-              <InputNumber
-                name="port"
-                placeholder="Port"
-                style={{ width: "50%" }}
-              />
-            )}
-            {getFieldDecorator("forwardPort", {
-              rules: [{ type: "number", message: "Please input only number" }]
-            })(
-              <InputNumber
-                name="forwardPort"
-                placeholder="Forward Port"
-                style={{ width: "50%" }}
-              />
+              <Row>
+                <Col span={2}>
+                  <label>Port :</label>
+                </Col>
+                <Col span={10}>
+                  <InputNumber
+                    name="port"
+                    placeholder="Port"
+                    style={{ width: "100%" }}
+                  />
+                  <InputNumber
+                    name="forwardPort"
+                    placeholder="Forward Port"
+                    style={{ width: "100%" }}
+                  />
+                </Col>
+              </Row>
             )}
           </FormItem>
-          <FormItem label="Name" {...formItemLayout}>
+          <FormItem>
             {getFieldDecorator("name", {
               rules: [{ type: "string", message: "Please input name" }]
             })(
-              <Input
-                name="name"
-                placeholder="Docker Name"
-                style={{ width: "50%" }}
-              />
+              <Row>
+                <Col span={2}>
+                  <label>Alias:</label>
+                </Col>
+                <Col span={10}>
+                  <Input
+                    name="name"
+                    placeholder="Docker Name"
+                    style={{ width: "100%" }}
+                  />
+                </Col>
+              </Row>
             )}
           </FormItem>
           <FormItem>
