@@ -2,10 +2,11 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "main": "main.js",
+  "main": "public/Main.js",
   "dependencies": {
     "antd": "^3.9.2",
     "babel-plugin-import": "^1.8.0",
+    "electron-is-dev": "^1.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.0",
     "react-app-rewired": "^1.6.2",
@@ -16,17 +17,30 @@
     "redux": "^4.0.0"
   },
   "scripts": {
-    "start-server": "react-app-rewired start",
+    "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
-    "start": "concurrently \"yarn start-server\" \"wait-on http://localhost:3000 && electron .\""
+    "electron-dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "electron-builder --c.extraMetadata.main=build/Main.js -p always",
+    "preelectron-pack": "yarn build"
   },
   "devDependencies": {
     "concurrently": "^4.0.1",
-    "electron": "^2.0.8",
+    "electron": "^3.0.4",
     "electron-builder": "^20.28.4",
     "wait-on": "^3.0.1"
-  }
+  },
+  "build": {
+    "appId": "com.example.my-app",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
+  "homepage": "./"
 }
