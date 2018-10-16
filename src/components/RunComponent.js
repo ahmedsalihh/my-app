@@ -41,17 +41,6 @@ class RunComponent extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
 
-    // const formItemLayout = {
-    //   labelCol: {
-    //     xs: { span: 24 },
-    //     sm: { span: 1 }
-    //   },
-    //   wrapperCol: {
-    //     xs: { span: 24 },
-    //     sm: { span: 8 }
-    //   }
-    // };
-
     return this.props.showComponent ? (
       <div>
         <Form onSubmit={this.handleSubmit}>
@@ -65,7 +54,7 @@ class RunComponent extends React.Component {
                   <label name="Image">Image :</label>
                 </Col>
                 <Col span={10}>
-                  <InputNumber
+                  <Input
                     name="imageName"
                     placeholder="Image Name"
                     style={{ width: "100%" }}
@@ -75,27 +64,35 @@ class RunComponent extends React.Component {
             )}
           </FormItem>
           <FormItem>
-            {getFieldDecorator("port", {
-              rules: [{ type: "number", message: "Please input only number" }]
-            })(
-              <Row>
-                <Col span={2}>
-                  <label>Port :</label>
-                </Col>
-                <Col span={10}>
+            <Row>
+              <Col span={2}>
+                <label>Port :</label>
+              </Col>
+              <Col span={10}>
+                {getFieldDecorator("port", {
+                  rules: [
+                    { type: "number", message: "Please input only number" }
+                  ]
+                })(
                   <InputNumber
                     name="port"
                     placeholder="Port"
                     style={{ width: "100%" }}
                   />
+                )}
+                {getFieldDecorator("forwardPort", {
+                  rules: [
+                    { type: "number", message: "Please input only number" }
+                  ]
+                })(
                   <InputNumber
                     name="forwardPort"
                     placeholder="Forward Port"
                     style={{ width: "100%" }}
                   />
-                </Col>
-              </Row>
-            )}
+                )}
+              </Col>
+            </Row>
           </FormItem>
           <FormItem>
             {getFieldDecorator("name", {

@@ -10,7 +10,9 @@ class PageContent extends React.Component {
   render() {
     return (
       <Layout>
-        <Header style={{ background: "#fff", padding: 0 }} />
+        <Header style={{ background: "#fff", padding: 0, textAlign: "center" }}>
+          <h2>EasyDocker</h2>
+        </Header>
         <Content style={{ margin: "10px 16px" }}>
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
             <Switch>
